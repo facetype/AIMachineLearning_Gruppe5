@@ -1,1 +1,1 @@
-Hele ECG datasettet til oppgaven ligger her:)
+https://physionet.org/content/ptb-xl/1.0.3/
