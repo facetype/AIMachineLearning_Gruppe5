@@ -7,3 +7,4 @@ data/processed/*
 !data/processed/README.md
 
 __pycache__/
+models/*.pt
