@@ -5,4 +5,4 @@ personal_notes.md
 .DS_Store
 data/processed/*
 !data/processed/README.md
-
+.venv/
