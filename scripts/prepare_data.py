@@ -6,7 +6,9 @@ Run from the repo root:  python -m scripts.prepare_data
 import numpy as np
 
 from src.preprocessing import (
+    MAX_MISSING_FRACTION,
     SUPERCLASSES,
+    drop_sparse_columns,
     find_bad_records,
     load_metadata,
     load_signals,
@@ -18,6 +20,8 @@ from src.preprocessing import (
 
 def main() -> None:
     df = load_metadata()
+    df, sparse_cols = drop_sparse_columns(df)
+    print(f"Dropped {len(sparse_cols)} metadata columns >{MAX_MISSING_FRACTION:.0%} missing: {sparse_cols}")
     print(f"Loading {len(df)} records...")
     X = load_signals(df)
 

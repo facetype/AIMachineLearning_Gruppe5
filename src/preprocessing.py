@@ -20,6 +20,9 @@ N_LEADS = 12
 VAL_FOLD = 9
 TEST_FOLD = 10
 
+# Metadata columns with more missing values than this are too sparse to be useful.
+MAX_MISSING_FRACTION = 0.6
+
 
 def load_metadata(raw_dir: Path = RAW_DIR) -> pd.DataFrame:
     """Read ptbxl_database.csv and add a `superclasses` column (list of SUPERCLASSES)."""
@@ -33,6 +36,13 @@ def load_metadata(raw_dir: Path = RAW_DIR) -> pd.DataFrame:
         lambda d: sorted({code_to_class[c] for c in d if c in code_to_class})
     )
     return df
+
+
+def drop_sparse_columns(df: pd.DataFrame) -> tuple[pd.DataFrame, list[str]]:
+    """Drop metadata columns missing more than MAX_MISSING_FRACTION of their values."""
+    missing = df.isna().mean()
+    dropped = missing[missing > MAX_MISSING_FRACTION].index.tolist()
+    return df.drop(columns=dropped), dropped
 
 
 def load_signals(df: pd.DataFrame, raw_dir: Path = RAW_DIR) -> np.ndarray:
