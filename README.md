@@ -26,6 +26,6 @@ models/        saved trained models
    ```
    python -m venv .venv
    source .venv/bin/activate
-   pip install numpy pandas wfdb matplotlib
+   pip install numpy pandas wfdb matplotlib torch scikit-learn
    ```
 
